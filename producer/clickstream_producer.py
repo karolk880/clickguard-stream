@@ -112,8 +112,6 @@ def main() -> None:
     rng = random.Random(args.seed)
     producer = KafkaProducer(
         bootstrap_servers=args.bootstrap_servers,
-        key_serializer=str.encode,
-        value_serializer=str.encode,
         acks="all",
         linger_ms=20,
     )
@@ -121,7 +119,7 @@ def main() -> None:
     started = last_burst = last_report = time.monotonic()
 
     def send(key: str, payload: str, label: str) -> None:
-        producer.send(args.topic, key=key, value=payload)
+        producer.send(args.topic, key=key.encode(), value=payload.encode())
         stats[label] += 1
 
     print(f"Producing to '{args.topic}' at {args.rate}/s (Ctrl+C to stop)")
