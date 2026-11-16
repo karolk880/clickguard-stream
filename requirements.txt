@@ -1,0 +1,4 @@
+# Spark 4.x requires Java 17+ on the machine running the job / tests.
+pyspark==4.1.4
+kafka-python==3.0.13
+pytest==9.2.0
